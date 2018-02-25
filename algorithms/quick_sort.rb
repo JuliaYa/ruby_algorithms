@@ -1,15 +1,11 @@
+
 class QuickSort
   def sort(array)
     return array if array.size < 2
 
     if array.size == 2
-      first = array.first
-      second = array.last
-      if first > second
-        array[0] = second
-        array[1] = first
-      end
-      array
+      first, second = array
+      return [second, first] if first > second
     end
 
     base = array.first
@@ -22,14 +18,20 @@ class QuickSort
         right.push el
       end
     end
-    [sort(left), [base], sort(right)].reduce([], :concat)
+    [sort(left), [base], sort(right)].reduce(:concat)
   end
 end
 
-list = [2, 5, 1, 7, 12, 45]
 qsort = QuickSort.new
-print qsort.sort list
-puts
-list2 = [3, 2]
-print qsort.sort list2
-puts
+
+require 'benchmark'
+
+rev = (1..10_000).to_a.reverse
+n = 100
+
+puts 'Measuring'
+Benchmark.bm do |x|
+  x.report('Standard sort') { n.times { rev.sort } }
+  x.report('My sort') { n.times { qsort.sort rev } }
+end
+

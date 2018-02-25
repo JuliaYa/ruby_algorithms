@@ -8,10 +8,12 @@ class QuickSort
       return [second, first] if first > second
     end
 
-    base = array.first
+    base_index = rand array.size
+    base = array[base_index]
     left = []
     right = []
-    array[1..-1].each do |el|
+    array.each_with_index do |el, idx|
+      next if idx == base_index
       if base > el
         left.push el
       else

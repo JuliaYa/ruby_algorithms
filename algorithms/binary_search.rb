@@ -7,6 +7,7 @@ class Search
       mid = (low + high) / 2
       guess = list[mid]
       return mid if guess == element
+
       if guess > element
         high = mid - 1
       else
@@ -15,6 +16,10 @@ class Search
     end
 
     nil
+  end
+
+  def rec_binary (list, element)
+    # не знаю как используя рекурсию возвращать правильный индекс элемента
   end
 end
 

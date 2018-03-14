@@ -1,7 +1,7 @@
 # breadth-first search algorithm
 class BFS
   def criterium_check(name)
-    name.include? 'nn'
+    name.include? 'gg'
   end
 
   def search(graph, start)
@@ -9,13 +9,10 @@ class BFS
     searched = []
     until queue.empty?
       name = queue.shift
-      unless searched.include?(name)
-        return name if criterium_check name
-        searched.push name
-        unless graph[name].empty?
-          queue = [queue, graph[name]].reduce(:concat)
-        end
-      end
+      next if searched.include?(name)
+      return name if criterium_check name
+      searched.push name
+      queue = [queue, graph[name]].reduce(:concat)
     end
     nil
   end
